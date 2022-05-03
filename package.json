@@ -3,7 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "start": "run-p api dev",
+    "dev": "vite --port=3555",
+    "api": "json-server --watch ./src/data/db.json --port 4555",
     "build": "vite build",
     "preview": "vite preview"
   },
