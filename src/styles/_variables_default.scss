@@ -1,0 +1,10 @@
+$color_skills: rgb(227, 231, 138);
+$fontSize_small: 0.9rem;
+$fontSize_medium: 1.2rem;
+$fontSize_large: 1.5rem;
+$siteIndent: 10px;
+
+@mixin border {
+  border: 1px solid #666;
+  border-radius: 5px;
+}

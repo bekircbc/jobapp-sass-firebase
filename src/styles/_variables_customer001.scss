@@ -1,0 +1,11 @@
+$color_skills: orange;
+$fontSize_small: 1.4rem;
+$fontSize_medium: 1.5rem;
+$fontSize_large: 1.9rem;
+$siteIndent: 60px;
+
+@mixin border {
+  border: 2px solid orange;
+  border-radius: 10px;
+  box-shadow: #fff 2px 2px 10px;
+}
