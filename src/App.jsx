@@ -7,6 +7,7 @@ import md5 from "md5";
 import { AddJob } from "./components/AddJob";
 
 const jobsUrl = "http://localhost:4556/jobs";
+const jobSitesUrl = "http://localhost:4556/jobSites";
 
 // const _jobs = db.jobs;
 
@@ -169,7 +170,9 @@ function App() {
             />
           )}
           {displayKind === "list" && <JobsList jobs={jobs} />}
-          {displayKind === "addJob" && <AddJob jobsUrl={jobsUrl} />}
+          {displayKind === "addJob" && (
+            <AddJob jobsUrl={jobsUrl} jobSitesUrl={jobSitesUrl} />
+          )}
         </>
       ) : (
         <form>
