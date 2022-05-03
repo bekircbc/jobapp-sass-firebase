@@ -5,19 +5,17 @@ import { JobsFull } from "./components/JobsFull";
 import { JobsList } from "./components/JobsList";
 import md5 from "md5";
 import { AddJob } from "./components/AddJob";
-import jobs from "./data/jobs.json";
-import jobSites from "./data/jobSites.json";
+import _data from "./data/db.json";
+// import _jobs from "./data/jobs.json";
+// import _jobSites from "./data/jobSites.json";
 
-const jobsUrl =
-  "https://react-firststreamingapp-default-rtdb.firebaseio.com/jobs.json";
-const jobSitesUrl =
-  "https://react-firststreamingapp-default-rtdb.firebaseio.com/jobSites.json";
+const url = "https://react-firststreamingapp-default-rtdb.firebaseio.com";
+// const jobSitesUrl =
+//   "https://react-firststreamingapp-default-rtdb.firebaseio.com/jobSites";
 
 // _jobs.forEach((job) => {
 //   job.status = "accepted";
 // });
-
-console.log(jobs, jobSites);
 
 const techItemsUrl = "https://edwardtanguay.netlify.app/share/techItems.json";
 
@@ -27,13 +25,14 @@ export const displayKinds = ["list", "full", "addJob"];
 function App() {
   const [displayKind, setDisplayKind] = useState("");
   const [jobs, setJobs] = useState([]);
-  const [jobSites, setJobSites] = useState([]);
+  // const [jobSites, setJobSites] = useState([]);
   const [techItems, setTechItems] = useState([]);
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(true);
   const [fieldLogin, setFieldLogin] = useState("");
   const [fieldPassword, setFieldPassword] = useState("");
   const [formMessage, setFormMessage] = useState("");
   const [userGroup, setUserGroup] = useState("fullAccessMembers");
+  const [data, setData] = useState([]);
 
   // const saveToLocalStorage = () => {
   //   if (displayKind !== "") {
@@ -56,24 +55,20 @@ function App() {
 
   // !! jobs.json and jobSites.json to firebase added.. !!!
 
-  const saveJobsToFirebase = async () => {
-    fetch(jobsUrl, {
+  // setJobs(_jobs);
+  // setJobSites(_jobSites);
+  setData(_data);
+
+  const saveDataToFirebase = async () => {
+    fetch(url, {
       method: "POST",
-      body: JSON.stringify(jobs),
+      body: JSON.stringify(data),
       headers: { "Content-type": "application/json; charset=UTF-8" },
     });
+    console.log(body);
   };
 
-  const saveJobSitesToFirebase = async () => {
-    fetch(jobSitesUrl, {
-      method: "POST",
-      body: JSON.stringify(jobSites),
-      headers: { "Content-type": "application/json; charset=UTF-8" },
-    });
-  };
-
-  saveJobsToFirebase();
-  saveJobSitesToFirebase();
+  saveDataToFirebase();
 
   const loadTechItems = () => {
     (async () => {
@@ -105,9 +100,9 @@ function App() {
     loadTechItems();
   }, []);
 
-  useEffect(() => {
-    saveToLocalStorage();
-  }, [displayKind, jobs]);
+  // useEffect(() => {
+  //   saveToLocalStorage();
+  // }, [displayKind, jobs]);
 
   const handleToggleView = () => {
     let displayKindIndex = displayKinds.indexOf(displayKind);
