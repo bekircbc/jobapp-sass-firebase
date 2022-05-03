@@ -5,9 +5,13 @@ import { JobsFull } from "./components/JobsFull";
 import { JobsList } from "./components/JobsList";
 import md5 from "md5";
 import { AddJob } from "./components/AddJob";
+import jobs from "./data/jobs.json";
+import jobSites from "./data/JobSites.json";
 
-const jobsUrl = "http://localhost:4556/jobs";
-const jobSitesUrl = "http://localhost:4556/jobSites";
+const jobsUrl =
+  "https://react-firststreamingapp-default-rtdb.firebaseio.com/jobs.json";
+const jobSitesUrl =
+  "https://react-firststreamingapp-default-rtdb.firebaseio.com/jobSites.json";
 
 // const _jobs = db.jobs;
 
@@ -30,24 +34,24 @@ function App() {
   const [formMessage, setFormMessage] = useState("");
   const [userGroup, setUserGroup] = useState("fullAccessMembers");
 
-  const saveToLocalStorage = () => {
-    if (displayKind !== "") {
-      const jobAppState = {
-        displayKind,
-        // jobs,
-      };
-      localStorage.setItem("jobAppState", JSON.stringify(jobAppState));
-    }
-  };
+  // const saveToLocalStorage = () => {
+  //   if (displayKind !== "") {
+  //     const jobAppState = {
+  //       displayKind,
+  //       // jobs,
+  //     };
+  //     localStorage.setItem("jobAppState", JSON.stringify(jobAppState));
+  //   }
+  // };
 
-  const loadLocalStorage = () => {
-    const jobAppState = JSON.parse(localStorage.getItem("jobAppState"));
-    if (jobAppState === null) {
-      setDisplayKind("list");
-    } else {
-      setDisplayKind(jobAppState.displayKind);
-    }
-  };
+  // const loadLocalStorage = () => {
+  //   const jobAppState = JSON.parse(localStorage.getItem("jobAppState"));
+  //   if (jobAppState === null) {
+  //     setDisplayKind("list");
+  //   } else {
+  //     setDisplayKind(jobAppState.displayKind);
+  //   }
+  // };
 
   const loadTechItems = () => {
     (async () => {
@@ -84,6 +88,25 @@ function App() {
     setDisplayKind(displayKinds[displayKindIndex]);
     loadJobs();
   };
+
+  const saveJobsToFirebase = async () => {
+    fetch(jobsUrl, {
+      method: "POST",
+      body: JSON.stringify(jobs),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    });
+  };
+
+  const saveJobSitesToFirebase = async () => {
+    fetch(jobSitesUrl, {
+      method: "POST",
+      body: JSON.stringify(jobSites),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    });
+  };
+
+  saveJobSitesToFirebase();
+  saveJobSitesToFirebase();
 
   const saveJobStatusToDb = async (job) => {
     const requestOptions = {
