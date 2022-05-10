@@ -78,25 +78,25 @@ function App() {
     })();
   };
 
-  const loadJobs = () => {
-    (async () => {
-      const response = await fetch(jobsUrl);
-      const _jobs = await response.json();
-      setJobs(_jobs);
-    })();
-  };
+  // const loadJobs = () => {
+  //   (async () => {
+  //     const response = await fetch(jobsUrl);
+  //     const _jobs = await response.json();
+  //     setJobs(_jobs);
+  //   })();
+  // };
 
-  const loadJobSites = () => {
-    (async () => {
-      const response = await fetch(jobSitesUrl);
-      const _jobSites = await response.json();
-      setJobSites(_jobSites);
-    })();
-  };
+  // const loadJobSites = () => {
+  //   (async () => {
+  //     const response = await fetch(jobSitesUrl);
+  //     const _jobSites = await response.json();
+  //     setJobSites(_jobSites);
+  //   })();
+  // };
 
   useEffect(() => {
-    loadJobs();
-    loadJobSites();
+    // loadJobs();
+    // loadJobSites();
     loadTechItems();
   }, []);
 
@@ -104,77 +104,77 @@ function App() {
   //   saveToLocalStorage();
   // }, [displayKind, jobs]);
 
-  const handleToggleView = () => {
-    let displayKindIndex = displayKinds.indexOf(displayKind);
-    displayKindIndex++;
-    if (displayKindIndex > displayKinds.length - 1) {
-      displayKindIndex = 0;
-    }
-    setDisplayKind(displayKinds[displayKindIndex]);
-    loadJobs();
-  };
+  // const handleToggleView = () => {
+  //   let displayKindIndex = displayKinds.indexOf(displayKind);
+  //   displayKindIndex++;
+  //   if (displayKindIndex > displayKinds.length - 1) {
+  //     displayKindIndex = 0;
+  //   }
+  //   setDisplayKind(displayKinds[displayKindIndex]);
+  //   loadJobs();
+  // };
 
-  const saveJobStatusToDb = async (job) => {
-    const requestOptions = {
-      method: "PATCH",
-      body: JSON.stringify({ status: job.status }),
-      headers: { "Content-type": "application/json; charset=UTF-8" },
-    };
-    try {
-      await fetch(jobsUrl + "/" + job.id, requestOptions);
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
+  // const saveJobStatusToDb = async (job) => {
+  //   const requestOptions = {
+  //     method: "PATCH",
+  //     body: JSON.stringify({ status: job.status }),
+  //     headers: { "Content-type": "application/json; charset=UTF-8" },
+  //   };
+  //   try {
+  //     await fetch(jobsUrl + "/" + job.id, requestOptions);
+  //   } catch (e) {
+  //     console.log(e.message);
+  //   }
+  // };
 
-  const handleStatusChange = (job) => {
-    let statusIndex = statuses.indexOf(job.status);
-    statusIndex++;
-    if (statusIndex > statuses.length - 1) {
-      statusIndex = 0;
-    }
-    job.status = statuses[statusIndex];
-    setJobs([...jobs]);
-    saveJobStatusToDb(job);
-  };
+  // const handleStatusChange = (job) => {
+  //   let statusIndex = statuses.indexOf(job.status);
+  //   statusIndex++;
+  //   if (statusIndex > statuses.length - 1) {
+  //     statusIndex = 0;
+  //   }
+  //   job.status = statuses[statusIndex];
+  //   setJobs([...jobs]);
+  //   saveJobStatusToDb(job);
+  // };
 
-  const handleSubmitButton = (e) => {
-    e.preventDefault();
-    const hash = md5(fieldPassword);
+  // const handleSubmitButton = (e) => {
+  //   e.preventDefault();
+  //   const hash = md5(fieldPassword);
 
-    if (fieldLogin === "me" && hash === "8c6744c9d42ec2cb9e8885b54ff744d0") {
-      setUserGroup("fullAccessMembers");
-      setUserIsLoggedIn(true);
-      setFormMessage("");
-    } else {
-      setFormMessage("bad login");
-    }
+  //   if (fieldLogin === "me" && hash === "8c6744c9d42ec2cb9e8885b54ff744d0") {
+  //     setUserGroup("fullAccessMembers");
+  //     setUserIsLoggedIn(true);
+  //     setFormMessage("");
+  //   } else {
+  //     setFormMessage("bad login");
+  //   }
 
-    if (fieldLogin === "guest" && hash === "7ce3284b743aefde80ffd9aec500e085") {
-      setUserGroup("guests");
-      setUserIsLoggedIn(true);
-      setFormMessage("");
-      setDisplayKind("list");
-    } else {
-      setFormMessage("bad login");
-    }
+  //   if (fieldLogin === "guest" && hash === "7ce3284b743aefde80ffd9aec500e085") {
+  //     setUserGroup("guests");
+  //     setUserIsLoggedIn(true);
+  //     setFormMessage("");
+  //     setDisplayKind("list");
+  //   } else {
+  //     setFormMessage("bad login");
+  //   }
 
-    setFieldLogin("");
-    setFieldPassword("");
-  };
+  //   setFieldLogin("");
+  //   setFieldPassword("");
+  // };
 
-  const handleFieldLogin = (e) => {
-    setFieldLogin(e.target.value);
-  };
+  // const handleFieldLogin = (e) => {
+  //   setFieldLogin(e.target.value);
+  // };
 
-  const handleFieldPassword = (e) => {
-    setFieldPassword(e.target.value);
-  };
+  // const handleFieldPassword = (e) => {
+  //   setFieldPassword(e.target.value);
+  // };
 
-  const handleLogoutButton = () => {
-    setFormMessage("");
-    setUserIsLoggedIn(false);
-  };
+  // const handleLogoutButton = () => {
+  //   setFormMessage("");
+  //   setUserIsLoggedIn(false);
+  // };
 
   return (
     <div className="App">
